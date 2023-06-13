@@ -26,4 +26,8 @@ def p_input(tipo,msg,err):
         print("Errore nel programma")
     return x
 
+<<<<<<< HEAD
 p_input("int","Scelta: ","Errore!!1!")
+=======
+p_input("int","Scelta: ","Errore!!1")
+>>>>>>> 0b6fda8a1209dd56af51d01f78fe4c739985f812
