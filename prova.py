@@ -1,5 +1,7 @@
+nome="1"
 import tkinter as tk
-
+from tkinter import *
+from functools import partial
 window = tk.Tk()
 window.geometry("600x600")
 window.resizable(False, False)
@@ -36,8 +38,18 @@ def iscrizione():
     text1_output = tk.Label(window, text=text, fg="red", font=("Courier", 30,"bold"))
     text1_output.grid(row=0, column=1, padx=150)
     indietro_button = tk.Button(window,text="Indietro",command=lambda:[indietro_button.grid_remove(),text1_output.grid_remove(),inizio(), exit_button.grid(row=6, column=1)])
-    indietro_button.grid(row=3, column=1)
+    indietro_button.grid(row=10, column=1)
 
+    def name():
+        global nome
+        nome=scrivi.get()
+        print (nome)
+    testo=Label(window, text="Inserisci il tuo nome:")
+    bottone=Button(window, text="Invia", command=name)
+    scrivi=Entry(window)
+    testo.grid(row=1, column=1)
+    scrivi.grid(row=2, column=1)
+    bottone.grid(row=3, column=1)
 def rinnova():
     text = "Menu Rinnova:"
     text2_output = tk.Label(window, text=text, fg="red", font=("Courier", 30,"bold"))
