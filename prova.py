@@ -54,11 +54,14 @@ def iscrizione():
                 if nome[i] not in lettere: 
                     errore.grid (row=4, column=1)
                     ctrl=1
+                else:
+                    ctrl=0
+                    errore.grid_remove() #??????
         else:
             errore.grid (row=4, column=1)
             ctrl=1
         if ctrl==0:
-            errore.destroy()
+            errore.destroy() #??????
             #......
             
     testo=Label(window, text="Inserisci il tuo nome:")
