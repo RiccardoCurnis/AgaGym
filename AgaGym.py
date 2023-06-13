@@ -122,7 +122,7 @@ def info():
         if yn=="SI":
             while True:
                 anno=p_input("int","Anno: ","Inserisci un anno valido")
-                if anno>datetime.datetime.now().year:
+                if anno>datetime.datetime.now().year or anno<1900:
                     print("Errore anno non valido!")
                     continue
                 elif anno==datetime.datetime.now().year:
@@ -134,13 +134,21 @@ def info():
                             continue
                     elif mese<datetime.datetime.now().month:
                         giorno=p_input("int","Giorno: ","Inserisci un giorno valido")
-                    else:
+                        if giorno>31 or giorno<1:
+                            print("Giorno non valido!")
+                            continue
+                    elif mese>12 or mese<1:
                         print("Mese non valido!")
                         continue
                 else:
                     mese=p_input("int","Mese: ","Inserisci un mese valido")
+                    if mese>12 or mese<1:
+                        print("Mese non valido!")
+                        continue
                     giorno=p_input("int","Giorno: ","Inserisci un giorno valido")
-
+                    if giorno>31 or giorno<1:
+                        print("Giorno non valido!")
+                        continue
                 datap=datetime.datetime(anno, mese, giorno)
                 print(datap)
                 break
@@ -165,19 +173,55 @@ def info():
         else:
             print("Errore!")
             continue
+    global record
+    record=("{:}|{:}|{:}|{:}|{:}".format(nome, cognome,cod_fis,datap,abbonamento))
+    print(record)
     #crea QrCode
     code=qrcode.make(cod_fis)
     name="{:}.{:}.png".format(nome,cognome)
     code.save (name)
 
-def aggiungi(): #codice fiscale, nome e cognome, data di iscrizione, tipo di abbonamento
-    print()
+def aggiungi(nomefile): #codice fiscale, nome e cognome, data di iscrizione, tipo di abbonamento
+    print("Iscriviti!")
+    info()
+    record1=str(record+"\n")
+    miofile=open(nomefile,"a")
+    miofile.write(record1)
+    miofile.flush()
+    miofile.close()
 def rinnova():
-    print
-def cancella():
-    print
-def visualizza():
-    print
+    print("Rinnova l'abbonamento!")
+    info()
+
+def cancella(nomefile):
+    print("Elimina un'iscrizione!")
+    print("Seleziona l'iscrizione da rimuovere: ")
+    miofile=open(nomefile,"r")
+    buffer=miofile.read()
+    buffer=buffer.split("\n")
+    for i in range(len(buffer)-1):
+        print("{:})".format(i+1),buffer[i])
+    scel=p_input("int","Indica il numero dell'iscrizione che vuoi rimuovere: ","Numero non valido")
+    scel-=1
+    buffer.pop(scel)
+    miofile.flush()
+    miofile.close()
+    miofile=open(nomefile,"w")
+    miofile.close()
+    miofile=open(nomefile,"a")
+    for f in range(len(buffer)-1):
+        miofile.write(buffer[f]+"\n")
+    miofile.flush()
+    miofile.close()
+
+def visualizza(nomefile):
+    print("Visualizza le iscirzioni")
+    miofile=open(nomefile,"r")
+    buffer=miofile.read()
+    buffer=buffer.split("\n")
+    for i in range(len(buffer)-1):
+        print(buffer[i])
+        
 def verifica():
     print
 
@@ -186,27 +230,28 @@ def verifica():
 
 #--------------------------------------------------------------------------------
 def main():
-    print("---MENU---")
-    print("1. Aggiungi Iscrizione")
-    print("2. Rinnova Iscrizione")
-    print("3. Cancella Iscrizione")
-    print("4. Visualizza Iscrizioni")
-    print("5. Verifica Validità")
-    print("6. Esci")
-    s=p_input("int","Scelta: ","Scelta non valida!")
-    if s>0 and s<7:
-        if s==1:
-            aggiungi()
-        elif s==2:
-            rinnova()
-        elif s==3:
-            cancella()
-        elif s==4:
-            visualizza()
-        elif s==5:
-            verifica()
-        elif s==6:
-            print("Uscita in corso...")
-            quit()
+    while True:
+        print("---MENU---")
+        print("1. Aggiungi Iscrizione")
+        print("2. Rinnova Iscrizione")
+        print("3. Cancella Iscrizione")
+        print("4. Visualizza Iscrizioni")
+        print("5. Verifica Validità")
+        print("6. Esci")
+        s=p_input("int","Scelta: ","Scelta non valida!")
+        if s>0 and s<7:
+            if s==1:
+                aggiungi("AgaGym.txt")
+            elif s==2:
+                rinnova("AgaGym.txt")
+            elif s==3:
+                cancella("AgaGym.txt")
+            elif s==4:
+                visualizza("AgaGym.txt")
+            elif s==5:
+                verifica()
+            elif s==6:
+                print("Uscita in corso...")
+                quit()
 
-info()
+main()
