@@ -120,7 +120,6 @@ def info():
         yn=str(input("Registrare una data nel passato? "))
         yn=yn.upper()
         if yn=="SI":
-#--------CONTROLLI DATA DA SISTEMARE------
             while True:
                 anno=p_input("int","Anno: ","Inserisci un anno valido")
                 if anno>datetime.datetime.now().year:
