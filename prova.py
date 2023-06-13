@@ -59,7 +59,7 @@ def iscrizione():
             ctrl=1
         if ctrl==0:
             errore.destroy()
-            
+            #......
             
     testo=Label(window, text="Inserisci il tuo nome:")
     bottone=Button(window, text="Invia", command=name)
