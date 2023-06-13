@@ -1,4 +1,6 @@
 nome="1"
+lettere=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," "]
+numeri=["1","2","3","4","5","6","7","8","9","0"]
 import tkinter as tk
 from tkinter import *
 from functools import partial
@@ -43,13 +45,28 @@ def iscrizione():
     def name():
         global nome
         nome=scrivi.get()
+        nome=nome.upper()
+        errore=Label(window, text="Errore, Nome non valido!")
         print (nome)
+        ctrl=0
+        if len(nome)>2 and len(nome)<31:
+            for i in range(len(nome)):
+                if nome[i] not in lettere: 
+                    errore.grid (row=4, column=1)
+                    ctrl=1
+        else:
+            errore.grid (row=4, column=1)
+            ctrl=1
+        if ctrl==0:
+            errore.destroy()
+            
+            
     testo=Label(window, text="Inserisci il tuo nome:")
     bottone=Button(window, text="Invia", command=name)
     scrivi=Entry(window)
     testo.grid(row=1, column=1)
     scrivi.grid(row=2, column=1)
-    bottone.grid(row=3, column=1)
+    bottone.grid(row=5, column=1)
 def rinnova():
     text = "Menu Rinnova:"
     text2_output = tk.Label(window, text=text, fg="red", font=("Courier", 30,"bold"))
