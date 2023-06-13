@@ -120,6 +120,7 @@ def info():
         yn=str(input("Registrare una data nel passato? "))
         yn=yn.upper()
         if yn=="SI":
+#--------CONTROLLI DATA DA SISTEMARE------
             anno=p_input("int","Anno: ","Inserisci un anno valido")
             mese=p_input("int","Mese: ","Inserisci un mese valido")
             giorno=p_input("int","Giorno: ","Inserisci un giorno valido")
