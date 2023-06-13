@@ -121,17 +121,31 @@ def info():
         yn=yn.upper()
         if yn=="SI":
 #--------CONTROLLI DATA DA SISTEMARE------
-            anno=p_input("int","Anno: ","Inserisci un anno valido")
-            mese=p_input("int","Mese: ","Inserisci un mese valido")
-            giorno=p_input("int","Giorno: ","Inserisci un giorno valido")
-            datap=datetime.datetime(anno, mese, giorno)
-            dataattuale = datetime.datetime.now()
-            if datap<dataattuale:
+            while True:
+                anno=p_input("int","Anno: ","Inserisci un anno valido")
+                if anno>datetime.datetime.now().year:
+                    print("Errore anno non valido!")
+                    continue
+                elif anno==datetime.datetime.now().year:
+                    mese=p_input("int","Mese: ","Inserisci un mese valido")
+                    if mese==datetime.datetime.now().month:
+                        giorno=p_input("int","Giorno: ","Inserisci un giorno valido")
+                        if giorno>datetime.datetime.now().day:
+                            print("Errore giorno non valido!")
+                            continue
+                    elif mese<datetime.datetime.now().month:
+                        giorno=p_input("int","Giorno: ","Inserisci un giorno valido")
+                    else:
+                        print("Mese non valido!")
+                        continue
+                else:
+                    mese=p_input("int","Mese: ","Inserisci un mese valido")
+                    giorno=p_input("int","Giorno: ","Inserisci un giorno valido")
+
+                datap=datetime.datetime(anno, mese, giorno)
                 print(datap)
                 break
-            else:
-                print("Data non valida!")
-                continue
+            break
         elif yn=="NO":
             datap=datetime.datetime.now()
             print(datap)
