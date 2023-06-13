@@ -31,6 +31,7 @@ def p_input(tipo,msg,err):
         print("Errore nel programma")
     return x
 
+#--------------------------------------------------------------------------------
 def info():
     while True:
         nome=str(input("Inserisci il nome: "))
@@ -49,7 +50,8 @@ def info():
             continue
         if cntrl==0:
             break
-    
+
+#--------------------------------------------------------------------------------
     while True:
         cognome=str(input("Inserisci il cognome: "))
         cognome=cognome.upper()
@@ -68,8 +70,9 @@ def info():
         if cntrl==0:
             break
 
+#--------------------------------------------------------------------------------
     while True:
-        print("FORMATO CODICE FISCALE: AAAAAANNANNANNNA")
+        print("FORMATO CODICE FISCALE: A A A A A A N N A N N A N N N A")
         cod_fis=str(input("Inserisci il codice fiscale : "))
         cod_fis=cod_fis.upper()
         cntrl=0
@@ -81,41 +84,38 @@ def info():
                 if cod_fis[i]not in lettere and cntrl!=1:
                     cntrl=1
                     print("Errore! Codice Fiscale non valido! \n")
-                    print("1")
                     break
             for i in range (6,8):
                 if cod_fis[i]not in numeri and cntrl!=1:
                     cntrl=1
                     print("Errore! Codice Fiscale non valido! \n")
-                    print("2")
                     break
             if cod_fis[8] not in lettere and cntrl!=1:
                 cntrl=1
                 print("Errore! Codice Fiscale non valido! \n")
-                print("3")
             for i in range (9,11):
                 if cod_fis[i] not in numeri and cntrl!=1:
                     cntrl=1
-                    print("4")
                     print("Errore! Codice Fiscale non valido! \n")
                     break
             if cod_fis[11] not in lettere and cntrl!=1:
                 cntrl=1
                 print("Errore! Codice Fiscale non valido! \n")
-                print("5")
+
             for i in range (12,15):
                 if cod_fis[i] not in numeri and cntrl!=1:
                     cntrl=1
-                    print("6")
+
                     print("Errore! Codice Fiscale non valido! \n")
                     break
             if cod_fis[15] not in lettere and cntrl!=1:
                 cntrl=1
                 print("Errore! Codice Fiscale non valido! \n")
-                print("7")
+
         if cntrl==0:
             break
-    
+
+#--------------------------------------------------------------------------------
     while True:
         yn=str(input("Registrare una data nel passato? "))
         yn=yn.upper()
@@ -139,8 +139,8 @@ def info():
         else:
             print("Errore! Riprova!")
             continue
-        
-    
+
+#--------------------------------------------------------------------------------
     while True:
         abb=["Annuale","Semestrale","Trimestrale"]
         for i in range(len(abb)):
@@ -156,6 +156,7 @@ def info():
     code=qrcode.make(cod_fis)
     name="{:}.{:}.png".format(nome,cognome)
     code.save (name)
+
 def aggiungi(): #codice fiscale, nome e cognome, data di iscrizione, tipo di abbonamento
     print()
 def rinnova():
@@ -170,7 +171,7 @@ def verifica():
 
 
 
-
+#--------------------------------------------------------------------------------
 def main():
     print("---MENU---")
     print("1. Aggiungi Iscrizione")
