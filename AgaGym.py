@@ -221,19 +221,18 @@ def rinnova(nomefile):
                 if mese>12:
                     mese-=12
                     anno+=1
-                    if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                        print("Abbonamento non scaduto!")
-                    else:
-                        print("Abbonamento scaduto!")
-                        while True:
-                            yn=str(input("Rinnovarlo? "))
-                            yn=yn.upper()
-                            if yn=="SI":
-                                record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
-                                print(record)
-
-                            elif yn=="NO":
-                                print
+                if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
+                    print("Abbonamento non scaduto!")
+                else:
+                    print("Abbonamento scaduto!")
+                    while True:
+                        yn=str(input("Rinnovarlo? "))
+                        yn=yn.upper()
+                        if yn=="SI":
+                            record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
+                            print(record)
+                        elif yn=="NO":
+                            print
 
 
             elif n=="Semestrale":
@@ -242,19 +241,19 @@ def rinnova(nomefile):
                 if mese>12:
                     mese-=12
                     anno+=1
-                    if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                        print("Abbonamento non scaduto!")
-                    else:
-                        print("Abbonamento scaduto!")
-                        while True:
-                            yn=str(input("Rinnovarlo? "))
-                            yn=yn.upper()
-                            if yn=="SI":
-                                record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
-                                print(record)
-                                
-                            elif yn=="NO":
-                                print
+                if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
+                    print("Abbonamento non scaduto!")
+                else:
+                    print("Abbonamento scaduto!")
+                    while True:
+                        yn=str(input("Rinnovarlo? "))
+                        yn=yn.upper()
+                        if yn=="SI":
+                            record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
+                            print(record)
+                            
+                        elif yn=="NO":
+                            print
 
             elif n=="Annuale":
                 print("Abbonamento Annuale")
