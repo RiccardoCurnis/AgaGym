@@ -231,9 +231,11 @@ def rinnova(nomefile):
                         if yn=="SI":
                             record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
                             print(record)
-                        elif yn=="NO":
-                            print
+                            break
 
+                        elif yn=="NO":
+                            print("Abbonamento annullato!")
+                            break
 
             elif n=="Semestrale":
                 print("Abbonamento Semestrale")
@@ -251,9 +253,11 @@ def rinnova(nomefile):
                         if yn=="SI":
                             record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
                             print(record)
+                            break
                             
                         elif yn=="NO":
-                            print
+                            print("Abbonamento annullato!")
+                            break
 
             elif n=="Annuale":
                 print("Abbonamento Annuale")
@@ -268,9 +272,11 @@ def rinnova(nomefile):
                         if yn=="SI":
                             record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
                             print(record)
+                            break
                             
                         elif yn=="NO":
-                            print
+                            print("Abbonamento annullato!")
+                            break
             record=("{:}|{:}|{:}|{:}-{:}-{:}|{:}\n".format(g[0],g[1],g[2],anno,mese,lista3[2],g[4]))
         print(record)
 def cancella(nomefile):
