@@ -212,8 +212,11 @@ def rinnova(nomefile):
             u=g[3]
             lista3=u.split("-")
             for i in range(len(lista3)):
+                global anno
+                global mese
                 anno=int(lista3[0])
                 mese=int(lista3[1])
+                global n
             n=g[4]
     if n=="Trimestrale":
         print("Abbonamento Trimestrale")
@@ -231,10 +234,10 @@ def rinnova(nomefile):
                 if yn=="SI":
                     record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
                     print(record)
-                    break
+                    brea
                 elif yn=="NO":
                     print("Abbonamento annullato!")
-                    break
+                    brea
     elif n=="Semestrale":
         print("Abbonamento Semestrale")
         mese+=6
@@ -255,7 +258,7 @@ def rinnova(nomefile):
                     
                 elif yn=="NO":
                     print("Abbonamento annullato!")
-                    break
+                    brea
     elif n=="Annuale":
         print("Abbonamento Annuale")
         anno+=1
@@ -274,7 +277,6 @@ def rinnova(nomefile):
                 elif yn=="NO":
                     print("Abbonamento annullato!")
                     break
-
             record=("{:}|{:}|{:}|{:}-{:}-{:}|{:}\n".format(g[0],g[1],g[2],anno,mese,lista3[2],g[4]))
         print(record)
 def cancella(nomefile):
