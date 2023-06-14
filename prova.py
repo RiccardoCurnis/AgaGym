@@ -155,6 +155,11 @@ def iscrizione():
                                     def resoconto(abbonamento):
                                         record=("{:}|{:}|{:}|{:}|{:}".format(nome, cognome, cod_fis, datap, abbonamento))
                                         print(record)
+                                        testo7.grid_remove()
+                                        BottoneAbb1.grid_remove()
+                                        BottoneAbb2.grid_remove()
+                                        BottoneAbb3.grid_remove()
+                                        
                                     BottoneAbb1=Button(window, text="Annuale", command=annuale)
                                     BottoneAbb2=Button(window, text="Semestrale",command=semestrale)
                                     BottoneAbb3=Button(window, text="Trimestrale",command=trimestrale)
