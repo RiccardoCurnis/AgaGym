@@ -151,12 +151,12 @@ def info():
                         continue
                 try:
                     datap=datetime.datetime(anno, mese, giorno)
+                    print(datap)
                     break
                 except ValueError:
                     print("Inserisci un giorno valido")
                     continue
-                print(datap)
-                break
+
             break
         elif yn=="NO":
             datap=datetime.datetime.now()
