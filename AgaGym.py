@@ -204,6 +204,9 @@ def rinnova(nomefile):
     buffer=buffer.split("\n")
     miofile.close()
     listaUtenti=buffer
+    miofile=open(nomefile,"w")
+    miofile.close()
+    miofile=open(nomefile,"a")
     for i in range(len(listaUtenti)-1):#non l'ultimo perchè è vuoto
         print(f"{i+1})",listaUtenti[i])
         yeah=listaUtenti[i].split("|")
@@ -223,6 +226,7 @@ def rinnova(nomefile):
                 print("Abbonamento non scaduto!")
                 record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
                 print(record)
+                miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
@@ -231,6 +235,7 @@ def rinnova(nomefile):
                     if yn=="SI":
                         record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
                         print(record)
+                        miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
@@ -245,6 +250,7 @@ def rinnova(nomefile):
                 print("Abbonamento non scaduto!")
                 record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
                 print(record)
+                miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
@@ -253,6 +259,7 @@ def rinnova(nomefile):
                     if yn=="SI":
                         record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
                         print(record)
+                        miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
@@ -264,6 +271,7 @@ def rinnova(nomefile):
                 print("Abbonamento non scaduto!")
                 record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
                 print(record)
+                miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
@@ -272,6 +280,7 @@ def rinnova(nomefile):
                     if yn=="SI":
                         record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
                         print(record)
+                        miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
