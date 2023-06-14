@@ -8,7 +8,7 @@ from tkinter import messagebox
 window = tkinter.Tk()
 window.title("Dati")
 lettere=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," "]
-numeri=["1","2","3","4","5","6","7","8","9","0"]
+numeri=["1","2","3","4","5","6","7","8","9","0","/"]
 
 def error_message():
     tkinter.messagebox.showwarning(title="Error", message="Dati errati")
@@ -89,51 +89,79 @@ def prendidati():
     codicefisc = codicefisc_entry.get()
     codicefisc=codicefisc.upper()
     ctrl=0
-    
+    if (len(codicefisc))!=16:
+        ctrl=1
+        print("Errore! Codice Fiscale non valido! 1 \n")
+        error_message()
+    if ctrl==0:
+        
+        for i in range(6):
+            
+            if codicefisc[i]not in lettere and ctrl!=1:
+                ctrl=1
+                error_message()
+        for i in range (6,8):
+            if codicefisc[i]not in numeri and ctrl!=1:
+                ctrl=1
+                
+                error_message()
+        if codicefisc[8] not in lettere and ctrl!=1:
+            ctrl=1
+            
+            error_message()
+        for i in range (9,11):
+            if codicefisc[i] not in numeri and ctrl!=1:
+                ctrl=1
+                
+                error_message()
+        if codicefisc[11] not in lettere and ctrl!=1:
+            ctrl=1
+            
+            error_message()
+        for i in range (12,15):
+            if codicefisc[i] not in numeri and ctrl!=1:
+                ctrl=1
+                
+                error_message()
+        if codicefisc[15] not in lettere and ctrl!=1:
+            ctrl=1
+            
+            error_message()
+        if ctrl==0:
+            dati.append(codicefisc)
+            print(dati)
+
 
 
 
     dataiscriz = dataiscriz_entry.get()
     dataiscriz=dataiscriz.upper()
-    while True:
-                anno=dataiscriz
-                if anno>datetime.datetime.now().year or anno<1900:
-                    error_message()
-                    continue
-                elif anno==datetime.datetime.now().year:
-                    mese=dataiscriz
-                    if mese==datetime.datetime.now().month:
-                        giorno=dataiscriz
-                        if giorno>datetime.datetime.now().day:
-                            error_message()
-                            continue
-                    elif mese<datetime.datetime.now().month:
-                        giorno=dataiscriz
-                        if giorno>31 or giorno<1:
-                            error_message()
-                            continue
-                    elif mese>12 or mese<1:
-                        error_message()
-                        continue
-                else:
-                    mese=dataiscriz
-                    if mese>12 or mese<1:
-                        error_message()
-                        continue
-                    giorno=dataiscriz
-                    if giorno>31 or giorno<1:
-                        error_message()
-                        continue
-                try:
-                    datap=datetime.datetime(anno, mese, giorno)
-                    print(datap)
-                    break
-                except ValueError:
-                    error_message()
-                    continue
+    if len(dataiscriz)==10:
+         for i in range(len(dataiscriz)):
+                    if dataiscriz[i] not in numeri:
+                        ctrl=1 
+    
+                    else:
+                        ctrl=0
+
+                
+    else:
+            ctrl=1
+    if ctrl==0:
+            dati.append(dataiscriz)
+            print(dati)
+    elif ctrl==1:
+          error_message()
+        
 
 
     durataabb = durataabb_combobox.get()
+    durataabb=durataabb.upper()
+    if durataabb=="TRIMESTRE" or durataabb=="SEMESTRE" or durataabb=="ANNUALE":
+          dati.append(durataabb)
+          print(dati)
+    else:
+          error_message()
 
 
 
