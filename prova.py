@@ -1,4 +1,5 @@
 import time
+import qrcode
 nome="1"
 lettere=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," "]
 numeri=["1","2","3","4","5","6","7","8","9","0"]
@@ -152,13 +153,29 @@ def iscrizione():
                                     def trimestrale():
                                         abbonamento="Trimestrale"
                                         resoconto(abbonamento)
+                                    
                                     def resoconto(abbonamento):
                                         record=("{:}|{:}|{:}|{:}|{:}".format(nome, cognome, cod_fis, datap, abbonamento))
                                         print(record)
+                                        def salva():
+                                            code=qrcode.make(cod_fis)
+                                            name="{:}.{:}.png".format(nome,cognome)
+                                            code.save (name)
+                                            record1=str(record+"\n")
+                                            nomefile="{:}.{:}.txt".format(nome,cognome)
+                                            miofile=open(nomefile,"w")
+                                            miofile.write(record1)
+                                            miofile.flush()
+                                            miofile.close()
                                         testo7.grid_remove()
                                         BottoneAbb1.grid_remove()
                                         BottoneAbb2.grid_remove()
                                         BottoneAbb3.grid_remove()
+                                        testofinale="Utente Registrato con successo!\n--> {:} \n È corretto?".format(record)
+                                        testo8=Label(window, text=testofinale)
+                                        testo8.grid(row=1, column=1)
+                                        bottoneFinale=Button(window, text="Si")
+                                        bottoneFinale.grid(row=2, column=1)
                                         
                                     BottoneAbb1=Button(window, text="Annuale", command=annuale)
                                     BottoneAbb2=Button(window, text="Semestrale",command=semestrale)
