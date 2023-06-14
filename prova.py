@@ -138,6 +138,33 @@ def iscrizione():
                                 scrivi2.grid_remove()
                                 bottone2.grid_remove()
 
+                                def abbonamento(datap):
+                                    print ("Ciao Sono qui")
+                                    abbonamento=""
+                                    print (datap)
+                                    testo7=Label(window, text="Seleziona Tipologia di Abbonamento:")
+                                    def annuale():
+                                        abbonamento="Annuale"
+                                        resoconto(abbonamento)
+                                    def semestrale():
+                                        abbonamento="Semestrale"
+                                        resoconto(abbonamento)
+                                    def trimestrale():
+                                        abbonamento="Trimestrale"
+                                        resoconto(abbonamento)
+                                    def resoconto(abbonamento):
+                                        record=("{:}|{:}|{:}|{:}|{:}".format(nome, cognome, cod_fis, datap, abbonamento))
+                                        print(record)
+                                    BottoneAbb1=Button(window, text="Annuale", command=annuale)
+                                    BottoneAbb2=Button(window, text="Semestrale",command=semestrale)
+                                    BottoneAbb3=Button(window, text="Trimestrale",command=trimestrale)
+
+
+                                    testo7.grid (row=1, column=1)
+                                    BottoneAbb1.grid(row=2, column=1)
+                                    BottoneAbb2.grid(row=3, column=1)
+                                    BottoneAbb3.grid(row=4, column=1)
+                                    
                                 def inserisciData():
                                     print("Sono in inserisci data manuale")
                                     testo4=Label(window, text="Inserisci Anno:")
@@ -152,44 +179,67 @@ def iscrizione():
                                         Anno=IAnno.get()
                                         Mese=IMese.get()
                                         Giorno=Igiorno.get()
+                                        if Anno=="" or Mese=="" or Giorno=="":
+                                            errore6.grid(row=8, column=1)
+                                            ctrl=1
+                                        try:
+                                            Anno=int(Anno)
+                                            Mese=int(Mese)
+                                            Giorno=int(Giorno)
+                                        except ValueError:
+                                            errore6.grid(row=8, column=1)
+                                            
+                                            
+                                            ctrl=1
                                         if Anno>datetime.datetime.now().year or Anno<1900 and ctrl==0:
                                             print("Errore anno non valido!")
-                                            errore6.grid(row=8, column=1)
-                                            time.sleep(1)
-                                            errore6.grid_remove()
+                                            errore6.grid(row=12, column=1)
+                                            
+                                            
                                             ctrl=1
-                                        elif Mese>datetime.datetime.now().month and ctrl==0:
+                                        elif Mese>datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
                                             print("Errore Mese non valido!")
-                                            errore6.grid(row=8, column=1)
-                                            time.sleep(1)
-                                            errore6.grid_remove()
+                                            errore6.grid(row=12, column=1)
+                                            
+                                            
                                             ctrl=1
-                                        elif Giorno>datetime.datetime.now().day and ctrl==0:
+                                        elif Giorno>datetime.datetime.now().day and Mese>datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
                                             print("Errore Giorno non valido!")
-                                            errore6.grid(row=8, column=1)
-                                            time.sleep(1)
-                                            errore6.grid_remove()
+                                            errore6.grid(row=12, column=1)
+                                            
+                                            
                                             ctrl=1
-                                        elif Mese>12 or Mese<1:
+                                        elif Mese>12 or Mese<1 and ctrl==0:
                                             print("Errore Mese non valido!")
-                                            errore6.grid(row=8, column=1)
-                                            time.sleep(1)
-                                            errore6.grid_remove()
+                                            errore6.grid(row=12, column=1)
+                                            
+                                            
                                             ctrl=1
-                                        elif Giorno>31 or Giorno<1:
+                                        elif Giorno>31 or Giorno<1 and ctrl==0:
                                             print("Giorno non valido!")
-                                            errore6.grid(row=8, column=1)
-                                            time.sleep(1)
-                                            errore6.grid_remove()
+                                            errore6.grid(row=12, column=1)
+                                            
+                                            
                                             ctrl=1
-                                        
+                                        if ctrl==0:
+                                            datap=datetime.datetime(Anno, Mese, Giorno)
+                                            print (datap)
+                                            errore6.grid_remove()
+                                            testo4.grid_remove()
+                                            testo5.grid_remove()
+                                            testo6.grid_remove()
+                                            IAnno.grid_remove()
+                                            IMese.grid_remove()
+                                            Igiorno.grid_remove()
+                                            bottone6.grid_remove()
+                                            abbonamento(datap)
+
+
+                                
 
 
 
-
-
-
-                                    bottone6=Button(window, text="Inserisci")
+                                    bottone6=Button(window, text="Inserisci", command=controlloData)
                                     testo4.grid(row=1, column=1)
                                     testo5.grid(row=3, column=1)
                                     testo6.grid(row=5, column=1)
@@ -198,11 +248,15 @@ def iscrizione():
                                     Igiorno.grid(row=6, column=1)
                                     bottone6.grid(row=7, column=1)
 
+                                def dataOdierna():
+                                    datap=datetime.datetime.now()
+                                    abbonamento(datap)
 
+                            
                                 testo3=Label(window, text="Scegli La data da inserire:")
                                 data=datetime.datetime.now()
                                 DataAttuale="Data Odierna ({:})".format(data)
-                                bottoneData1=Button(window, text=DataAttuale, command=codicefiscale)
+                                bottoneData1=Button(window, text=DataAttuale, command=lambda:[dataOdierna(), bottoneData1.grid_remove(),bottoneData2.grid_remove(),testo3.grid_remove()])
                                 bottoneData2=Button(window, text="Altra Data", command=lambda:[inserisciData(), bottoneData1.grid_remove(),bottoneData2.grid_remove(),testo3.grid_remove()])
                                 testo3.grid(row=1, column=1)
                                 bottoneData1.grid(row=2, column=1)
