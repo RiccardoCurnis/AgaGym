@@ -189,9 +189,15 @@ def aggiungi(nomefile): #codice fiscale, nome e cognome, data di iscrizione, tip
     miofile.write(record1)
     miofile.flush()
     miofile.close()
-def rinnova():
+    
+def rinnova(nomefile):
     print("Rinnova l'abbonamento!")
-    info()
+    miofile=open(nomefile,"r")
+    buffer=miofile.read()
+    buffer=buffer.split("\n")
+    for i in range(len(buffer)-1):
+        print("{:})".format(i+1),buffer[i])
+    
 
 def cancella(nomefile):
     print("Elimina un'iscrizione!")
