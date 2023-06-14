@@ -39,7 +39,7 @@ def iscrizione():
     text = "Menu Iscrizione:"
     text1_output = tk.Label(window, text=text, fg="red", font=("Courier", 30,"bold"))
     text1_output.grid(row=0, column=1, padx=150)
-    indietro_button = tk.Button(window,text="Indietro",command=lambda:[indietro_button.grid_remove(),text1_output.grid_remove(),inizio(), exit_button.grid(row=6, column=1)])
+    indietro_button = tk.Button(window,text="Indietro",command=lambda:[indietro_button.grid_remove(),bottone.grid_remove(),testo.grid_remove(),scrivi.grid_remove(),text1_output.grid_remove(),inizio(), exit_button.grid(row=6, column=1)])
     indietro_button.grid(row=10, column=1)
 
     def name():
