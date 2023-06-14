@@ -234,10 +234,10 @@ def rinnova(nomefile):
                 if yn=="SI":
                     record=("{:}|{:}|{:}|{:}|{:}\n".format(g[0],g[1],g[2],datao,g[4]))
                     print(record)
-                    brea
+                    break
                 elif yn=="NO":
                     print("Abbonamento annullato!")
-                    brea
+                    break
     elif n=="Semestrale":
         print("Abbonamento Semestrale")
         mese+=6
@@ -258,7 +258,7 @@ def rinnova(nomefile):
                     
                 elif yn=="NO":
                     print("Abbonamento annullato!")
-                    brea
+                    break
     elif n=="Annuale":
         print("Abbonamento Annuale")
         anno+=1
