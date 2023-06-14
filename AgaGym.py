@@ -315,11 +315,57 @@ def visualizza(nomefile):
     for i in range(len(buffer)-1):
         print(buffer[i])
         
-def verifica():
-    print
+def verifica(nomefile):
+    print("Verifica che gli abbonamenti non siano scaduti!")
+    datao=datetime.datetime.now()
+    lista2=[]
+    miofile=open(nomefile,"r")
+    buffer=miofile.read()
+    buffer=buffer.split("\n")
+    miofile.close()
+    listaUtenti=buffer
+    for i in range(len(listaUtenti)-1):#non l'ultimo perchè è vuoto
+        print(f"{i+1})",listaUtenti[i])
+        yeah=listaUtenti[i].split("|")
+        lista2.append(yeah)
+        u=yeah[3]
+        annomese=u.split("-")
+        anno=int(annomese[0])
+        mese=int(annomese[1])
+        n=yeah[4]
+        if n=="Trimestrale":
+            print("Abbonamento Trimestrale")
+            mese+=3
+            if mese>12:
+                mese-=12
+                anno+=1
+            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
+                print("Abbonamento non scaduto!")
+                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
 
+            else:
+                print("Abbonamento scaduto!")
+        elif n=="Semestrale":
+            print("Abbonamento Semestrale")
+            mese+=6
+            if mese>12:
+                mese-=12
+                anno+=1
+            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
+                print("Abbonamento non scaduto!")
+                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
 
+            else:
+                print("Abbonamento scaduto!")
+        elif n=="Annuale":
+            print("Abbonamento Annuale")
+            anno+=1
+            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
+                print("Abbonamento non scaduto!")
+                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
 
+            else:
+                print("Abbonamento scaduto!")
 
 #--------------------------------------------------------------------------------
 def main():
@@ -342,7 +388,7 @@ def main():
             elif s==4:
                 visualizza("AgaGym.txt")
             elif s==5:
-                verifica()
+                verifica("AgaGym.txt")
             elif s==6:
                 print("Uscita in corso...")
                 quit()
