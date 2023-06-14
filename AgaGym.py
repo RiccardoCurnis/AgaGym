@@ -221,7 +221,7 @@ def rinnova(nomefile):
                 if mese>12:
                     mese-=12
                     anno+=1
-                    if mese<=datetime.datetime.now().month and anno<=datetime.datetime.now().year:
+                    if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
                         print("Abbonamento non scaduto!")
                     else:
                         print("Abbonamento scaduto!")
@@ -242,7 +242,7 @@ def rinnova(nomefile):
                 if mese>12:
                     mese-=12
                     anno+=1
-                    if mese<=datetime.datetime.now().month and anno<=datetime.datetime.now().year:
+                    if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
                         print("Abbonamento non scaduto!")
                     else:
                         print("Abbonamento scaduto!")
@@ -259,7 +259,7 @@ def rinnova(nomefile):
             elif n=="Annuale":
                 print("Abbonamento Annuale")
                 anno+=1
-                if mese<=datetime.datetime.now().month and anno<=datetime.datetime.now().year:
+                if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
                     print("Abbonamento non scaduto!")
                 else:
                     print("Abbonamento scaduto!")
