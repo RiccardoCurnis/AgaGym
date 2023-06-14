@@ -1,6 +1,8 @@
+import time
 nome="1"
 lettere=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," "]
 numeri=["1","2","3","4","5","6","7","8","9","0"]
+import datetime
 import tkinter as tk
 from tkinter import *
 from functools import partial
@@ -43,28 +45,191 @@ def iscrizione():
     indietro_button.grid(row=10, column=1)
 
     def name():
+        ctrl=0
         global nome
         nome=scrivi.get()
         nome=nome.upper()
-        errore=Label(window, text="Errore, Nome non valido!")
-        print (nome)
-        ctrl=0
-        if len(nome)>2 and len(nome)<31:
-            for i in range(len(nome)):
-                if nome[i] not in lettere: 
-                    errore.grid (row=4, column=1)
-                    ctrl=1
-                else:
-                    ctrl=0
-                    errore.grid_remove() #??????
+        if (len(nome))>2 and (len(nome))<31:
+            print ("è tutto ok")
+            for i in range (len(nome)):
+                if nome[i] not in lettere:
+                    print("Errore")
+                    ctrl=1 
+                    sbagliato.grid(row=3, column=1)
         else:
-            errore.grid (row=4, column=1)
+            print("Errore")
             ctrl=1
+            sbagliato.grid(row=3, column=1)
         if ctrl==0:
-            errore.destroy() #??????
-            #......
+            print ("Chiedo il cognome")
+            sbagliato.grid_remove()
+            testo.grid_remove()
+            scrivi.grid_remove()
+            bottone.grid_remove()
+            def cognome ():
+                ctrl=0
+                global cognome
+                cognome=scrivi1.get()
+                cognome=cognome.upper()
+                if len(cognome)>2 and len(cognome)<31:
+                    for i in range(len(cognome)):
+                        if cognome[i] not in lettere:
+                            ctrl=1
+                            print("Errore! Cognome non valido!\n")
+                            sbagliato1.grid(row=3, column=1)   
+                else:
+                    ctrl=1
+                    print("Cognome non valido!\n")
+                    sbagliato1.grid(row=3, column=1)
+                if ctrl==0:
+                    sbagliato1.grid_remove()
+                    testo1.grid_remove()
+                    scrivi1.grid_remove()
+                    bottone1.grid_remove()
+                    print(nome,cognome)
+                    def codicefiscale():
+                        ctrl=0
+                        global cod_fis
+                        cod_fis=scrivi2.get()
+                        cod_fis=cod_fis.upper()
+                        if (len(cod_fis))!=16:
+                            ctrl=1
+                            print("Errore! Codice Fiscale non valido! 1 \n")
+                            sbagliato2.grid(row=3, column=1)
+                        if ctrl==0:
+                            
+                            for i in range(6):
+                                
+                                if cod_fis[i]not in lettere and ctrl!=1:
+                                    ctrl=1
+                                    print("Errore! Codice Fiscale non valido!2 \n")
+                                    sbagliato2.grid(row=3, column=1)
+                            for i in range (6,8):
+                                if cod_fis[i]not in numeri and ctrl!=1:
+                                    ctrl=1
+                                    print("Errore! Codice Fiscale non valido!3 \n")
+                                    sbagliato2.grid(row=3, column=1)
+                            if cod_fis[8] not in lettere and ctrl!=1:
+                                ctrl=1
+                                print("Errore! Codice Fiscale non valido!4 \n")
+                                sbagliato2.grid(row=3, column=1)
+                            for i in range (9,11):
+                                if cod_fis[i] not in numeri and ctrl!=1:
+                                    ctrl=1
+                                    print("Errore! Codice Fiscale non valido!5 \n")
+                                    sbagliato2.grid(row=3, column=1)
+                            if cod_fis[11] not in lettere and ctrl!=1:
+                                ctrl=1
+                                print("Errore! Codice Fiscale non valido!6 \n")
+                                sbagliato2.grid(row=3, column=1)
+                            for i in range (12,15):
+                                if cod_fis[i] not in numeri and ctrl!=1:
+                                    ctrl=1
+                                    print("Errore! Codice Fiscale non valido!7 \n")
+                                    sbagliato2.grid(row=3, column=1)
+                            if cod_fis[15] not in lettere and ctrl!=1:
+                                ctrl=1
+                                print("Errore! Codice Fiscale non valido8 ! \n")
+                                sbagliato2.grid(row=3, column=1)
+                            if ctrl==0:
+                                print("Inserire la data")
+                                sbagliato2.grid_remove()
+                                testo2.grid_remove()
+                                scrivi2.grid_remove()
+                                bottone2.grid_remove()
+
+                                def inserisciData():
+                                    print("Sono in inserisci data manuale")
+                                    testo4=Label(window, text="Inserisci Anno:")
+                                    testo5=Label(window, text="Inserisci Mese:")
+                                    testo6=Label(window, text="Inserisci Giorno:")
+                                    IAnno=Entry(window)
+                                    IMese=Entry(window)
+                                    Igiorno=Entry(window)
+                                    errore6=Label(window, text="Errore!", fg="red")
+                                    def controlloData():
+                                        ctrl=0
+                                        Anno=IAnno.get()
+                                        Mese=IMese.get()
+                                        Giorno=Igiorno.get()
+                                        if Anno>datetime.datetime.now().year or Anno<1900 and ctrl==0:
+                                            print("Errore anno non valido!")
+                                            errore6.grid(row=8, column=1)
+                                            time.sleep(1)
+                                            errore6.grid_remove()
+                                            ctrl=1
+                                        elif Mese>datetime.datetime.now().month and ctrl==0:
+                                            print("Errore Mese non valido!")
+                                            errore6.grid(row=8, column=1)
+                                            time.sleep(1)
+                                            errore6.grid_remove()
+                                            ctrl=1
+                                        elif Giorno>datetime.datetime.now().day and ctrl==0:
+                                            print("Errore Giorno non valido!")
+                                            errore6.grid(row=8, column=1)
+                                            time.sleep(1)
+                                            errore6.grid_remove()
+                                            ctrl=1
+                                        elif Mese>12 or Mese<1:
+                                            print("Errore Mese non valido!")
+                                            errore6.grid(row=8, column=1)
+                                            time.sleep(1)
+                                            errore6.grid_remove()
+                                            ctrl=1
+                                        elif Giorno>31 or Giorno<1:
+                                            print("Giorno non valido!")
+                                            errore6.grid(row=8, column=1)
+                                            time.sleep(1)
+                                            errore6.grid_remove()
+                                            ctrl=1
+                                        
+
+
+
+
+
+
+                                    bottone6=Button(window, text="Inserisci")
+                                    testo4.grid(row=1, column=1)
+                                    testo5.grid(row=3, column=1)
+                                    testo6.grid(row=5, column=1)
+                                    IAnno.grid(row=2, column=1)
+                                    IMese.grid(row=4, column=1)
+                                    Igiorno.grid(row=6, column=1)
+                                    bottone6.grid(row=7, column=1)
+
+
+                                testo3=Label(window, text="Scegli La data da inserire:")
+                                data=datetime.datetime.now()
+                                DataAttuale="Data Odierna ({:})".format(data)
+                                bottoneData1=Button(window, text=DataAttuale, command=codicefiscale)
+                                bottoneData2=Button(window, text="Altra Data", command=lambda:[inserisciData(), bottoneData1.grid_remove(),bottoneData2.grid_remove(),testo3.grid_remove()])
+                                testo3.grid(row=1, column=1)
+                                bottoneData1.grid(row=2, column=1)
+                                bottoneData2.grid(row=3, column=1)
+
+
+
+                    testo2=Label(window, text="Inserisci il Codice Fiscale:")
+                    sbagliato2=Label(window, text="Errore, Codice Fiscale non valido!")
+                    bottone2=Button(window, text="Invia", command=codicefiscale)
+                    scrivi2=Entry(window)
+                    testo2.grid(row=1, column=1)
+                    scrivi2.grid(row=2, column=1)
+                    bottone2.grid(row=5, column=1)
+            testo1=Label(window, text="Inserisci il cognome:")
+            sbagliato1=Label(window, text="Errore, Cognome non valido!")
+            bottone1=Button(window, text="Invia", command=cognome)
+            scrivi1=Entry(window)
+            testo1.grid(row=1, column=1)
+            scrivi1.grid(row=2, column=1)
+            bottone1.grid(row=5, column=1)
             
-    testo=Label(window, text="Inserisci il tuo nome:")
+
+        
+            
+    testo=Label(window, text="Inserisci il nome:")
+    sbagliato=Label(window, text="Errore, Nome non valido!")
     bottone=Button(window, text="Invia", command=name)
     scrivi=Entry(window)
     testo.grid(row=1, column=1)
