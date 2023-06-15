@@ -379,25 +379,30 @@ def rinnova(nomefile):
                         continue
         
 def cancella(nomefile):
-    print("Elimina un'iscrizione!")
-    print("Seleziona l'iscrizione da rimuovere: ")
-    miofile=open(nomefile,"r")
-    buffer=miofile.read()
-    buffer=buffer.split("\n")
-    for i in range(len(buffer)-1):
-        print("{:})".format(i+1),buffer[i])
-    scel=p_input("int","Indica il numero dell'iscrizione che vuoi rimuovere: ","Numero non valido")
-    scel-=1
-    buffer.pop(scel)
-    miofile.flush()
-    miofile.close()
-    miofile=open(nomefile,"w")
-    miofile.close()
-    miofile=open(nomefile,"a")
-    for f in range(len(buffer)-1):
-        miofile.write(buffer[f]+"\n")
-    miofile.flush()
-    miofile.close()
+    while True:
+        print("Elimina un'iscrizione!")
+        print("Seleziona l'iscrizione da rimuovere: ")
+        miofile=open(nomefile,"r")
+        buffer=miofile.read()
+        buffer=buffer.split("\n")
+        for i in range(len(buffer)-1):
+            print("{:})".format(i+1),buffer[i])
+        scel=p_input("int","Indica il numero dell'iscrizione che vuoi rimuovere: ","Numero non valido")
+        scel-=1
+        if scel>len(buffer) or scel<0:
+            print("Errore!! Inesistente!")
+            continue
+        buffer.pop(scel)
+        miofile.flush()
+        miofile.close()
+        miofile=open(nomefile,"w")
+        miofile.close()
+        miofile=open(nomefile,"a")
+        for f in range(len(buffer)-1):
+            miofile.write(buffer[f]+"\n")
+        miofile.flush()
+        miofile.close()
+        break
 
 def visualizza(nomefile):
     print("Visualizza le iscirzioni")
