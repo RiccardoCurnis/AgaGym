@@ -162,8 +162,8 @@ def iscrizione():
                                             name="{:}.{:}.png".format(nome,cognome)
                                             code.save (name)
                                             record1=str(record+"\n")
-                                            nomefile="{:}.{:}.txt".format(nome,cognome)
-                                            miofile=open(nomefile,"w")
+                                            nomefile="AgaGym.txt"
+                                            miofile=open(nomefile,"a")
                                             miofile.write(record1)
                                             miofile.flush()
                                             miofile.close()
@@ -174,7 +174,7 @@ def iscrizione():
                                         testofinale="Utente Registrato con successo!\n--> {:} \n È corretto?".format(record)
                                         testo8=Label(window, text=testofinale)
                                         testo8.grid(row=1, column=1)
-                                        bottoneFinale=Button(window, text="Si")
+                                        bottoneFinale=Button(window, text="Si", command=salva)
                                         bottoneFinale.grid(row=2, column=1)
                                         
                                     BottoneAbb1=Button(window, text="Annuale", command=annuale)
