@@ -405,7 +405,6 @@ def rinnova():
                 if controlloanno>anno:
                     cliente[4]="Annuale"
                     cliente[3]=data
-                    cliente=str(cliente)
                     print("Ciao!!")
                     cliente=str("{:}|{:}|{:}|{:}|{:}".format(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4]))
                     listaUtenti[index]=cliente
