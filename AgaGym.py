@@ -33,6 +33,8 @@ def p_input(tipo,msg,err):
 
 #--------------------------------------------------------------------------------
 def info():
+    global nome
+    global cognome
     while True:
         nome=str(input("Inserisci il nome: "))
         nome=nome.upper()
@@ -72,6 +74,7 @@ def info():
 
 #--------------------------------------------------------------------------------
     while True:
+        global cod_fis
         print("FORMATO CODICE FISCALE: A A A A A A N N A N N A N N N A")
         cod_fis=str(input("Inserisci il codice fiscale : "))
         cod_fis=cod_fis.upper()
@@ -181,19 +184,35 @@ def info():
     global record
     record=("{:}|{:}|{:}|{:}|{:}".format(nome, cognome,cod_fis,datap,abbonamento))
     print(record)
-    #crea QrCode
-    code=qrcode.make(cod_fis)
-    name="{:}.{:}.png".format(nome,cognome)
-    code.save (name)
+    
 
 def aggiungi(nomefile): #codice fiscale, nome e cognome, data di iscrizione, tipo di abbonamento
-    print("Iscriviti!")
-    info()
-    record1=str(record+"\n")
-    miofile=open(nomefile,"a")
-    miofile.write(record1)
-    miofile.flush()
-    miofile.close()
+    while True:
+        print("Iscriviti!")
+        listacf=[]
+        miofile=open(nomefile,"r")
+        buffer=miofile.read()
+        buffer=buffer.split("\n")
+        miofile.close()
+        listaUtenti=buffer
+        for i in range(len(listaUtenti)-1):
+            ahh=listaUtenti[i].split("|")
+            cf=ahh[2]
+            listacf.append(cf)
+        info()
+        if cod_fis in listacf:
+            print("Utente gia' registrato!")
+            continue
+        record1=str(record+"\n")
+        miofile=open(nomefile,"a")
+        miofile.write(record1)
+        miofile.flush()
+        miofile.close()
+        #crea QrCode
+        code=qrcode.make(cod_fis)
+        name="{:}.{:}.png".format(nome,cognome)
+        code.save (name)
+        break
     
 def rinnova(nomefile):
     datao=datetime.datetime.now()
