@@ -2,9 +2,6 @@
 #Progetto Summer Camp - 12-16 Giugno 2023
 
 #--------------Codice---------------
-
-#Dichiaro i dizionari
-
 import qrcode
 import datetime
 
