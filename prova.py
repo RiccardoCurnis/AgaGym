@@ -338,16 +338,19 @@ def rinnova():
     listaUtenti=buffer
     text3=tk.Label(window, text="Abbonamenti", font=("Courier",20,"bold"))
     text3.grid(row=1, column=1)
+    posizione=2
+    posizione2=1
     for i in range (len(listaUtenti)-1):
         cliente=listaUtenti[i]
         cliente=cliente.split("|")
-        print(cliente)
-        print(cliente[1])
         testo="{:}.{:}|Abbonamento: {:}".format(cliente[0], cliente [1], cliente[4])
-        posizione=2+i
         output=tk.Label(window, text=testo)
-        output.grid(row=posizione, column=1)
-    posizione=posizione+1
+        if i>30:
+            posizione2=posizione2+1
+            output.grid(row=posizione2, column=2)
+        else:
+            output.grid(row=posizione, column=1)
+            posizione=posizione+1
     def invia():
         Nome_cognome=inserisci.get()
         Nome_cognome=Nome_cognome.upper()
@@ -632,16 +635,20 @@ def cancella():
             yee.grid(row=posizione+4, column=1)
             ricarica()
             
-
+    posizione=2
+    posizione2=1
     for i in range (len(listaUtenti)-1):
         cliente=listaUtenti[i]
         cliente=cliente.split("|")
-        print(cliente)
-        print(cliente[1])
         testo="{:}.{:}|Abbonamento: {:}".format(cliente[0], cliente [1], cliente[4])
-        posizione=2+i
         output=tk.Label(window, text=testo)
-        output.grid(row=posizione, column=1)
+        if i>30:
+            posizione2=posizione2+1
+            output.grid(row=posizione2, column=2)
+        else:
+            output.grid(row=posizione, column=1)
+            posizione=posizione+1
+
     text5=Label(window, text="--------------------------\nInserisci Nome.Cognome dell'abbonamento da cancellare:")
     entra=Entry(window)
     invio=Button(window, text="Invia", command=lambda:[cancella1()])
