@@ -309,15 +309,64 @@ def cancella(nomefile):
 
 def visualizza(nomefile):
     print("Visualizza le iscirzioni")
+    lista2=[]
+    while True:
+        print("FORMATO CODICE FISCALE: A A A A A A N N A N N A N N N A")
+        cod_fis=str(input("Inserisci il codice fiscale da cercare: "))
+        cod_fis=cod_fis.upper()
+        cntrl=0
+        if (len(cod_fis))!=16:
+            cntrl=1
+            print("Errore! Codice Fiscale non valido! \n")
+        if cntrl==0:
+            for i in range(6):
+                if cod_fis[i]not in lettere and cntrl!=1:
+                    cntrl=1
+                    print("Errore! Codice Fiscale non valido! \n")
+                    break
+            for i in range (6,8):
+                if cod_fis[i]not in numeri and cntrl!=1:
+                    cntrl=1
+                    print("Errore! Codice Fiscale non valido! \n")
+                    break
+            if cod_fis[8] not in lettere and cntrl!=1:
+                cntrl=1
+                print("Errore! Codice Fiscale non valido! \n")
+            for i in range (9,11):
+                if cod_fis[i] not in numeri and cntrl!=1:
+                    cntrl=1
+                    print("Errore! Codice Fiscale non valido! \n")
+                    break
+            if cod_fis[11] not in lettere and cntrl!=1:
+                cntrl=1
+                print("Errore! Codice Fiscale non valido! \n")
+
+            for i in range (12,15):
+                if cod_fis[i] not in numeri and cntrl!=1:
+                    cntrl=1
+
+                    print("Errore! Codice Fiscale non valido! \n")
+                    break
+            if cod_fis[15] not in lettere and cntrl!=1:
+                cntrl=1
+                print("Errore! Codice Fiscale non valido! \n")
+
+        if cntrl==0:
+            break
     miofile=open(nomefile,"r")
     buffer=miofile.read()
     buffer=buffer.split("\n")
-    for i in range(len(buffer)-1):
-        print(buffer[i])
+    miofile.close()
+    listaUtenti=buffer
+    for i in range(len(listaUtenti)-1):#non l'ultimo perchè è vuoto
+        yeah=listaUtenti[i].split("|")
+        lista2.append(yeah)
+        cod=yeah[2]
+        if cod==cod_fis:
+            print("L'abbonamento si trova in posizione",i+1)
         
 def verifica(nomefile):
     print("Verifica che gli abbonamenti non siano scaduti!")
-    datao=datetime.datetime.now()
     lista2=[]
     miofile=open(nomefile,"r")
     buffer=miofile.read()
