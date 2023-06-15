@@ -233,7 +233,18 @@ def rinnova(nomefile):
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
+                        while True:
+                            abb=["Annuale","Semestrale","Trimestrale"]
+                            for i in range(len(abb)):
+                                print("{:d}. {:s}".format(i+1,abb[i]))
+                            a=p_input("int","Scelta Abbonamento: ","Scelta non valida!")
+                            if a>0 and a<4:
+                                abbonamento=abb[a-1]
+                                break
+                            else:
+                                print("Errore!")
+                                continue
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{abbonamento}\n")
                         print(record)
                         miofile.write(record)
                         break
@@ -257,7 +268,18 @@ def rinnova(nomefile):
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
+                        while True:
+                            abb=["Annuale","Semestrale","Trimestrale"]
+                            for i in range(len(abb)):
+                                print("{:d}. {:s}".format(i+1,abb[i]))
+                            a=p_input("int","Scelta Abbonamento: ","Scelta non valida!")
+                            if a>0 and a<4:
+                                abbonamento=abb[a-1]
+                                break
+                            else:
+                                print("Errore!")
+                                continue
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{abbonamento}\n")
                         print(record)
                         miofile.write(record)
                         break
@@ -278,7 +300,18 @@ def rinnova(nomefile):
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
+                        while True:
+                            abb=["Annuale","Semestrale","Trimestrale"]
+                            for i in range(len(abb)):
+                                print("{:d}. {:s}".format(i+1,abb[i]))
+                            a=p_input("int","Scelta Abbonamento: ","Scelta non valida!")
+                            if a>0 and a<4:
+                                abbonamento=abb[a-1]
+                                break
+                            else:
+                                print("Errore!")
+                                continue
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{abbonamento}\n")
                         print(record)
                         miofile.write(record)
                         break
