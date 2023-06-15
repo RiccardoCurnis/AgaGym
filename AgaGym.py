@@ -2,9 +2,6 @@
 #Progetto Summer Camp - 12-16 Giugno 2023
 
 #--------------Codice---------------
-
-#Dichiaro i dizionari
-
 import qrcode
 import datetime
 
@@ -33,6 +30,8 @@ def p_input(tipo,msg,err):
 
 #--------------------------------------------------------------------------------
 def info():
+    global nome
+    global cognome
     while True:
         nome=str(input("Inserisci il nome: "))
         nome=nome.upper()
@@ -72,6 +71,7 @@ def info():
 
 #--------------------------------------------------------------------------------
     while True:
+        global cod_fis
         print("FORMATO CODICE FISCALE: A A A A A A N N A N N A N N N A")
         cod_fis=str(input("Inserisci il codice fiscale : "))
         cod_fis=cod_fis.upper()
@@ -181,19 +181,35 @@ def info():
     global record
     record=("{:}|{:}|{:}|{:}|{:}".format(nome, cognome,cod_fis,datap,abbonamento))
     print(record)
-    #crea QrCode
-    code=qrcode.make(cod_fis)
-    name="{:}.{:}.png".format(nome,cognome)
-    code.save (name)
+    
 
 def aggiungi(nomefile): #codice fiscale, nome e cognome, data di iscrizione, tipo di abbonamento
-    print("Iscriviti!")
-    info()
-    record1=str(record+"\n")
-    miofile=open(nomefile,"a")
-    miofile.write(record1)
-    miofile.flush()
-    miofile.close()
+    while True:
+        print("Iscriviti!")
+        listacf=[]
+        miofile=open(nomefile,"r")
+        buffer=miofile.read()
+        buffer=buffer.split("\n")
+        miofile.close()
+        listaUtenti=buffer
+        for i in range(len(listaUtenti)-1):
+            ahh=listaUtenti[i].split("|")
+            cf=ahh[2]
+            listacf.append(cf)
+        info()
+        if cod_fis in listacf:
+            print("Utente gia' registrato!")
+            continue
+        record1=str(record+"\n")
+        miofile=open(nomefile,"a")
+        miofile.write(record1)
+        miofile.flush()
+        miofile.close()
+        #crea QrCode
+        code=qrcode.make(cod_fis)
+        name="{:}.{:}.png".format(nome,cognome)
+        code.save (name)
+        break
     
 def rinnova(nomefile):
     datao=datetime.datetime.now()
@@ -215,97 +231,178 @@ def rinnova(nomefile):
         annomese=u.split("-")
         anno=int(annomese[0])
         mese=int(annomese[1])
+        giornoora=(annomese[2].split(" "))
+        giorno=int(giornoora[0])
         n=yeah[4]
         if n=="Trimestrale":
             print("Abbonamento Trimestrale")
-            mese+=3
-            if mese>12:
-                mese-=12
-                anno+=1
-            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                print("Abbonamento non scaduto!")
-                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
-                print(record)
-                miofile.write(record)
+            meseh=mese+3
+            if meseh>12:
+                meseh-=12
+                annoh=anno+1
+            else:
+                annoh=anno
+            if meseh>=datetime.datetime.now().month and annoh>=datetime.datetime.now().year:
+                if meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno>=datetime.datetime.now().day:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
+                elif meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno<datetime.datetime.now().day:
+                    print("Abbonamento scaduto!")
+                    while True:
+                        yn=str(input("Rinnovarlo? "))
+                        yn=yn.upper()
+                        if yn=="SI":
+                            record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
+                            print(record)
+                            miofile.write(record)
+                            break
+                        elif yn=="NO":
+                            print("Abbonamento annullato!")
+                            break
+                        else:
+                            continue
+                else:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
                         print(record)
                         miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
                         break
+                    else:
+                        continue
         elif n=="Semestrale":
             print("Abbonamento Semestrale")
-            mese+=6
-            if mese>12:
-                mese-=12
-                anno+=1
-            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                print("Abbonamento non scaduto!")
-                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
-                print(record)
-                miofile.write(record)
+            meseh=mese+6
+            if meseh>12:
+                meseh-=12
+                annoh=anno+1
+            else:
+                annoh=anno
+            if meseh>=datetime.datetime.now().month and annoh>=datetime.datetime.now().year:
+                    if meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno>=datetime.datetime.now().day:
+                        print("Abbonamento non scaduto!")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                        print(record)
+                        miofile.write(record)
+                    elif meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno<datetime.datetime.now().day:
+                        print("Abbonamento scaduto!")
+                        while True:
+                            yn=str(input("Rinnovarlo? "))
+                            yn=yn.upper()
+                            if yn=="SI":
+                                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
+                                print(record)
+                                miofile.write(record)
+                                break
+                            elif yn=="NO":
+                                print("Abbonamento annullato!")
+                                break
+                            else:
+                                continue
+                    else:
+                        print("Abbonamento non scaduto!")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                        print(record)
+                        miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
                         print(record)
                         miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
                         break
+                    else:
+                        continue
         elif n=="Annuale":
             print("Abbonamento Annuale")
-            anno+=1
-            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                print("Abbonamento non scaduto!")
-                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
-                print(record)
-                miofile.write(record)
+            annoh=anno+1
+            meseh=mese
+            if meseh>=datetime.datetime.now().month and annoh>=datetime.datetime.now().year:
+                if meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno>=datetime.datetime.now().day:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
+                elif meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno<datetime.datetime.now().day:
+                    print("Abbonamento scaduto!")
+                    while True:
+                        yn=str(input("Rinnovarlo? "))
+                        yn=yn.upper()
+                        if yn=="SI":
+                            record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
+                            print(record)
+                            miofile.write(record)
+                            break
+                        elif yn=="NO":
+                            print("Abbonamento annullato!")
+                            break
+                        else:
+                            continue
+                else:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{yeah[4]}\n")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
                         print(record)
                         miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
                         break
+                    else:
+                        continue
         
 def cancella(nomefile):
-    print("Elimina un'iscrizione!")
-    print("Seleziona l'iscrizione da rimuovere: ")
-    miofile=open(nomefile,"r")
-    buffer=miofile.read()
-    buffer=buffer.split("\n")
-    for i in range(len(buffer)-1):
-        print("{:})".format(i+1),buffer[i])
-    scel=p_input("int","Indica il numero dell'iscrizione che vuoi rimuovere: ","Numero non valido")
-    scel-=1
-    buffer.pop(scel)
-    miofile.flush()
-    miofile.close()
-    miofile=open(nomefile,"w")
-    miofile.close()
-    miofile=open(nomefile,"a")
-    for f in range(len(buffer)-1):
-        miofile.write(buffer[f]+"\n")
-    miofile.flush()
-    miofile.close()
+    while True:
+        print("Elimina un'iscrizione!")
+        print("Seleziona l'iscrizione da rimuovere: ")
+        miofile=open(nomefile,"r")
+        buffer=miofile.read()
+        buffer=buffer.split("\n")
+        for i in range(len(buffer)-1):
+            print("{:})".format(i+1),buffer[i])
+        scel=p_input("int","Indica il numero dell'iscrizione che vuoi rimuovere: ","Numero non valido")
+        scel-=1
+        if scel>len(buffer) or scel<0:
+            print("Errore!! Inesistente!")
+            continue
+        buffer.pop(scel)
+        miofile.flush()
+        miofile.close()
+        miofile=open(nomefile,"w")
+        miofile.close()
+        miofile=open(nomefile,"a")
+        for f in range(len(buffer)-1):
+            miofile.write(buffer[f]+"\n")
+        miofile.flush()
+        miofile.close()
+        break
 
 def visualizza(nomefile):
     print("Visualizza le iscirzioni")
