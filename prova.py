@@ -23,8 +23,10 @@ menu_button.grid(row=2, column=1)
 
 exit_button = tk.Button(text="Termina Sessione",command=quit)
 exit_button.grid(row=6, column=1)                                                                                                                                                                                                                                                                                                                                                                                                                                      
-
-
+def indietroB():
+    for widgets in window.winfo_children():
+      widgets.destroy()
+    inizio()
 
 def inizio():
     testo="Seleziona Una opzione:"
@@ -42,9 +44,8 @@ def iscrizione():
     text = "Menu Iscrizione:"
     text1_output = tk.Label(window, text=text, fg="red", font=("Courier", 30,"bold"))
     text1_output.grid(row=0, column=1, padx=150)
-    indietro_button = tk.Button(window,text="Indietro",command=lambda:[indietro_button.grid_remove(),bottone.grid_remove(),testo.grid_remove(),scrivi.grid_remove(),text1_output.grid_remove(),inizio(), exit_button.grid(row=6, column=1)])
-    indietro_button.grid(row=10, column=1)
-
+    indietro_button = tk.Button(window,text="Indietro",command=indietroB)
+    
     def name():
         ctrl=0
         global nome
@@ -167,6 +168,10 @@ def iscrizione():
                                             miofile.write(record1)
                                             miofile.flush()
                                             miofile.close()
+                                            text1_output.grid_remove()
+                                            inizio()
+
+
                                         testo7.grid_remove()
                                         BottoneAbb1.grid_remove()
                                         BottoneAbb2.grid_remove()
@@ -174,8 +179,10 @@ def iscrizione():
                                         testofinale="Utente Registrato con successo!\n--> {:} \n È corretto?".format(record)
                                         testo8=Label(window, text=testofinale)
                                         testo8.grid(row=1, column=1)
-                                        bottoneFinale=Button(window, text="Si", command=salva)
+                                        bottonerifiuta=Button(window, text="Annulla", command=lambda:[testo8.grid_remove(), bottoneFinale.grid_remove(),bottonerifiuta.grid_remove(),text1_output.grid_remove(),inizio()])
+                                        bottoneFinale=Button(window, text="Si", command=lambda:[salva(), testo8.grid_remove(), bottoneFinale.grid_remove()])
                                         bottoneFinale.grid(row=2, column=1)
+                                        bottonerifiuta.grid(row=3, column=1)
                                         
                                     BottoneAbb1=Button(window, text="Annuale", command=annuale)
                                     BottoneAbb2=Button(window, text="Semestrale",command=semestrale)
@@ -213,31 +220,31 @@ def iscrizione():
                                             
                                             
                                             ctrl=1
-                                        if Anno>datetime.datetime.now().year or Anno<1900 and ctrl==0:
+                                        if ctrl==0 and Anno>datetime.datetime.now().year or Anno<1900:
                                             print("Errore anno non valido!")
                                             errore6.grid(row=12, column=1)
                                             
                                             
                                             ctrl=1
-                                        elif Mese>datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
+                                        elif ctrl==0 and Mese>datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
                                             print("Errore Mese non valido!")
                                             errore6.grid(row=12, column=1)
                                             
                                             
                                             ctrl=1
-                                        elif Giorno>datetime.datetime.now().day and Mese>=datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
+                                        elif ctrl==0 and Giorno>datetime.datetime.now().day and Mese>=datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
                                             print("Errore Giorno non valido!")
                                             errore6.grid(row=12, column=1)
                                             
                                             
                                             ctrl=1
-                                        elif Mese>12 or Mese<1 and ctrl==0:
+                                        elif ctrl==0 and Mese>12 or Mese<1 and ctrl==0:
                                             print("Errore Mese non valido!")
                                             errore6.grid(row=12, column=1)
                                             
                                             
                                             ctrl=1
-                                        elif Giorno>31 or Giorno<1 and ctrl==0:
+                                        elif ctrl==0 and Giorno>31 or Giorno<1 and ctrl==0:
                                             print("Giorno non valido!")
                                             errore6.grid(row=12, column=1)
                                             
@@ -315,8 +322,146 @@ def rinnova():
     text = "Menu Rinnova:"
     text2_output = tk.Label(window, text=text, fg="red", font=("Courier", 30,"bold"))
     text2_output.grid(row=0, column=1, padx=160)
-    indietro_button = tk.Button(window,text="Indietro",command=lambda:[indietro_button.grid_remove(),text2_output.grid_remove(),inizio(), exit_button.grid(row=6, column=1)])
-    indietro_button.grid(row=3, column=1)
+    indietro_button = tk.Button(window,text="Indietro",command=indietroB)
+    miofile=open("AgaGym.txt","r")
+    buffer=miofile.read()
+    buffer=buffer.split("\n")
+    miofile.close()
+    listaUtenti=buffer
+    text3=tk.Label(window, text="Abbonamenti", font=("Courier",20,"bold"))
+    text3.grid(row=1, column=1)
+    for i in range (len(listaUtenti)-1):
+        cliente=listaUtenti[i]
+        cliente=cliente.split("|")
+        testo="{:}.{:}|Abbonamento: {:}".format(cliente[0], cliente [1], cliente[4])
+        posizione=1+i
+        output=tk.Label(window, text=testo)
+        output.grid(row=posizione, column=1)
+    posizione=posizione+1
+    def invia():
+        Nome_cognome=inserisci.get()
+        Nome_cognome=Nome_cognome.upper()
+        ctrl=0
+        def rinnova1(index):
+            for widgets in window.winfo_children():
+                widgets.destroy()
+            text = "Menu Rinnova:"
+            text2_output = tk.Label(window, text=text, fg="red", font=("Courier", 30,"bold"))
+            text2_output.grid(row=0, column=1, padx=160)
+            global cliente
+            cliente=listaUtenti[index]
+            cliente=cliente.split("|")
+            data=cliente[3]
+            data=data.split("-")
+            giorno=data[2]
+            n_1=giorno[0]
+            n_2=giorno[1]
+            giorno=n_1+n_2
+            giorno=int(giorno)
+            data.pop()
+            anno=data[0]
+            anno=int(anno)
+            mese=data[1]
+            mese=int(mese)
+            if cliente[4]=="Annuale":
+                anno=anno+1
+            if cliente[4]=="Semestrale":
+                mese=mese+6
+                if mese>12:
+                    anno=anno+1
+                    c=mese-12
+                    mese=c
+            if cliente[4]=="Trimestrale":
+                mese=mese+3
+                if mese>12:
+                    anno=anno+1
+                    c=mese-12
+                    mese=c
+
+            testo1="Cliente: {:} {:} \n Abbonamento: {:}\n Data di scadenza: {:}/{:}/{:}".format(cliente[0], cliente[1], cliente[4], anno, mese, giorno)
+            text5=Label(window, text=testo1)
+            text5.grid(row=1, column=1)
+            text6=Label(window, text="Scegli il tipo di abbonamento:")
+            text6.grid(row=2, column=1)
+            def riscrivi(listaUtenti):
+                miofile=open("AgaGym.txt","w")
+                miofile.close()
+                miofile=open("AgaGym.txt","a")
+                for i in range(len(listaUtenti)-1):
+                    inser=str("{:}\n".format(listaUtenti[i]))
+                    miofile.write(inser)
+                miofile.close()
+            def annuale():
+                controllomese=datetime.datetime.now().month
+                controllomese=int(controllomese)
+                controlloanno=datetime.datetime.now().year
+                controlloanno=int(controlloanno)
+                controllogiorno=datetime.datetime.now().day
+                controllogiorno=int(controllogiorno)
+                data=str(datetime.datetime.now())
+                cliente=listaUtenti[index]
+                cliente=cliente.split("|")
+                print(cliente)
+                if controlloanno>anno:
+                    cliente[4]="Annuale"
+                    cliente[3]=data
+                    cliente=str(cliente)
+                    print("Ciao!!")
+                    cliente=str("{:}|{:}|{:}|{:}|{:}".format(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4]))
+                    listaUtenti[index]=cliente
+                    riscrivi(listaUtenti)
+                elif controlloanno==anno:
+                    if controllomese>mese:
+                        cliente[4]="Annuale"
+                        cliente[3]=data
+                        cliente=str("{:}|{:}|{:}|{:}|{:}".format(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4]))
+                        listaUtenti[index]=cliente
+                        print("Ciao!!!")
+                        riscrivi(listaUtenti)
+                    elif controllomese==mese:
+                        if controllogiorno>=giorno:
+                            print("CIao!!!!")
+                            cliente[4]="Annuale"
+                            cliente[3]=data
+                            cliente=str("{:}|{:}|{:}|{:}|{:}".format(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4]))
+                            listaUtenti[index]=cliente
+                            riscrivi(listaUtenti)
+            BottoneAbb1=Button(window, text="Annuale", command=annuale)
+            BottoneAbb2=Button(window, text="Semestrale",)
+            BottoneAbb3=Button(window, text="Trimestrale",)
+            BottoneAbb1.grid(row=3, column=1)
+            BottoneAbb2.grid(row=4, column=1)
+            BottoneAbb3.grid(row=5, column=1)
+
+
+        for i in range (len(listaUtenti)-1):
+            cliente=listaUtenti[i]
+            cliente=cliente.split("|")
+            index=0
+            nomeControllo="{:}.{:}".format(cliente[0],cliente[1])
+            if nomeControllo==Nome_cognome:
+                ctrl=1
+                index=i
+                print("Ciao")
+                
+                break
+            else:
+                continue
+        if ctrl==0:
+            errore=Label(window, text="Errore!", fg="red")
+            errore.grid(row=posizione+4,column=1)
+        else:
+            rinnova1(index)
+
+    text4=Label(window, text="-------------------------- \n Inserisci il nome.cognome di chi vuoi rinnovare:")
+    text4.grid(row=posizione, column=1)
+    inserisci=Entry(window)
+    inserisci.grid(row=posizione+1, column=1)
+    posizione=posizione+2
+    bottone=Button(window, text="Invia", command=invia)
+    bottone.grid(row=posizione, column=1)
+    indietro_button.grid(row=posizione+1, column=1)
+    
 
 def cancella():
     text = "Menu Cancella:"
