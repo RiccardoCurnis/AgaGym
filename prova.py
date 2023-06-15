@@ -225,7 +225,7 @@ def iscrizione():
                                             
                                             
                                             ctrl=1
-                                        elif Giorno>datetime.datetime.now().day and Mese>datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
+                                        elif Giorno>datetime.datetime.now().day and Mese>=datetime.datetime.now().month and Anno==datetime.datetime.now().year and ctrl==0:
                                             print("Errore Giorno non valido!")
                                             errore6.grid(row=12, column=1)
                                             
