@@ -215,109 +215,152 @@ def rinnova(nomefile):
         annomese=u.split("-")
         anno=int(annomese[0])
         mese=int(annomese[1])
+        giornoora=(annomese[2].split(" "))
+        giorno=int(giornoora[0])
         n=yeah[4]
         if n=="Trimestrale":
             print("Abbonamento Trimestrale")
-            mese+=3
-            if mese>12:
-                mese-=12
-                anno+=1
-            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                print("Abbonamento non scaduto!")
-                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
-                print(record)
-                miofile.write(record)
+            meseh=mese+3
+            if meseh>12:
+                meseh-=12
+                annoh=anno+1
+            else:
+                annoh=anno
+            if meseh>=datetime.datetime.now().month and annoh>=datetime.datetime.now().year:
+                if meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno>=datetime.datetime.now().day:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
+                elif meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno<datetime.datetime.now().day:
+                    print("Abbonamento scaduto!")
+                    while True:
+                        yn=str(input("Rinnovarlo? "))
+                        yn=yn.upper()
+                        if yn=="SI":
+                            record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
+                            print(record)
+                            miofile.write(record)
+                            break
+                        elif yn=="NO":
+                            print("Abbonamento annullato!")
+                            break
+                        else:
+                            continue
+                else:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        while True:
-                            abb=["Annuale","Semestrale","Trimestrale"]
-                            for i in range(len(abb)):
-                                print("{:d}. {:s}".format(i+1,abb[i]))
-                            a=p_input("int","Scelta Abbonamento: ","Scelta non valida!")
-                            if a>0 and a<4:
-                                abbonamento=abb[a-1]
-                                break
-                            else:
-                                print("Errore!")
-                                continue
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{abbonamento}\n")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
                         print(record)
                         miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
                         break
+                    else:
+                        continue
         elif n=="Semestrale":
             print("Abbonamento Semestrale")
-            mese+=6
-            if mese>12:
-                mese-=12
-                anno+=1
-            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                print("Abbonamento non scaduto!")
-                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
-                print(record)
-                miofile.write(record)
+            meseh=mese+6
+            if meseh>12:
+                meseh-=12
+                annoh=anno+1
+            else:
+                annoh=anno
+            if meseh>=datetime.datetime.now().month and annoh>=datetime.datetime.now().year:
+                    if meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno>=datetime.datetime.now().day:
+                        print("Abbonamento non scaduto!")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                        print(record)
+                        miofile.write(record)
+                    elif meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno<datetime.datetime.now().day:
+                        print("Abbonamento scaduto!")
+                        while True:
+                            yn=str(input("Rinnovarlo? "))
+                            yn=yn.upper()
+                            if yn=="SI":
+                                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
+                                print(record)
+                                miofile.write(record)
+                                break
+                            elif yn=="NO":
+                                print("Abbonamento annullato!")
+                                break
+                            else:
+                                continue
+                    else:
+                        print("Abbonamento non scaduto!")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                        print(record)
+                        miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        while True:
-                            abb=["Annuale","Semestrale","Trimestrale"]
-                            for i in range(len(abb)):
-                                print("{:d}. {:s}".format(i+1,abb[i]))
-                            a=p_input("int","Scelta Abbonamento: ","Scelta non valida!")
-                            if a>0 and a<4:
-                                abbonamento=abb[a-1]
-                                break
-                            else:
-                                print("Errore!")
-                                continue
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{abbonamento}\n")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
                         print(record)
                         miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
                         break
+                    else:
+                        continue
         elif n=="Annuale":
             print("Abbonamento Annuale")
-            anno+=1
-            if mese>=datetime.datetime.now().month and anno>=datetime.datetime.now().year:
-                print("Abbonamento non scaduto!")
-                record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{yeah[4]}\n")
-                print(record)
-                miofile.write(record)
+            annoh=anno+1
+            meseh=mese
+            if meseh>=datetime.datetime.now().month and annoh>=datetime.datetime.now().year:
+                if meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno>=datetime.datetime.now().day:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
+                elif meseh==datetime.datetime.now().month and annoh==datetime.datetime.now().year and giorno<datetime.datetime.now().day:
+                    print("Abbonamento scaduto!")
+                    while True:
+                        yn=str(input("Rinnovarlo? "))
+                        yn=yn.upper()
+                        if yn=="SI":
+                            record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
+                            print(record)
+                            miofile.write(record)
+                            break
+                        elif yn=="NO":
+                            print("Abbonamento annullato!")
+                            break
+                        else:
+                            continue
+                else:
+                    print("Abbonamento non scaduto!")
+                    record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{anno}-{mese}-{annomese[2]}|{n}\n")
+                    print(record)
+                    miofile.write(record)
             else:
                 print("Abbonamento scaduto!")
                 while True:
                     yn=str(input("Rinnovarlo? "))
                     yn=yn.upper()
                     if yn=="SI":
-                        while True:
-                            abb=["Annuale","Semestrale","Trimestrale"]
-                            for i in range(len(abb)):
-                                print("{:d}. {:s}".format(i+1,abb[i]))
-                            a=p_input("int","Scelta Abbonamento: ","Scelta non valida!")
-                            if a>0 and a<4:
-                                abbonamento=abb[a-1]
-                                break
-                            else:
-                                print("Errore!")
-                                continue
-                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{abbonamento}\n")
+                        record=(f"{yeah[0]}|{yeah[1]}|{yeah[2]}|{datao}|{n}\n")
                         print(record)
                         miofile.write(record)
                         break
                     elif yn=="NO":
                         print("Abbonamento annullato!")
                         break
+                    else:
+                        continue
         
 def cancella(nomefile):
     print("Elimina un'iscrizione!")
