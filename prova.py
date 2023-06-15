@@ -792,7 +792,7 @@ def verifica():
     testo = "Menu Verifica:"
     text4_output = tk.Label(window, text=testo, fg="red", font=("Courier", 30,"bold"))
     text4_output.grid(row=0, column=1, padx=150)
-    indietro_button = tk.Button(window,text="Indietro",command=lambda:[indietro_button.grid_remove(),text4_output.grid_remove(),inizio(), exit_button.grid(row=6, column=1)])
+    indietro_button = tk.Button(window,text="Indietro",command=indietroB)
     indietro_button.grid(row=190, column=1)
     text5=Label(window, text="Inserisci il codice Fiscale: formato: A A A A A A N N A N N A N N N A" )
     text5.grid(row=1, column=1)
